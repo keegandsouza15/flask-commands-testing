@@ -1,0 +1,25 @@
+<!doctype html>
+<title>My Application</title>
+
+<!doctype html>
+<title>Generate Large Sdout</title>
+
+<h2>
+    <form action = "/output" method = "POST">
+    Enter the size in mb you want to generate to stdout:
+    <input type = "number" name = "size" required />
+    <input type="submit" value="Submit">
+    </form>
+</h2>
+
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}

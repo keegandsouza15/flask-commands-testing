@@ -1,0 +1,30 @@
+
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        var refresh_id = setInterval(function() {
+            $.get(
+              "{{ url_for('get_file_sizes') }}",
+              function(data) {
+                console.log(data);
+                document.getElementById("ls").innerHTML=""
+                for (var item in data){
+                    document.getElementById("ls").innerHTML += "<p>" + data[item] + "</p>"
+                
+                }
+              }
+            )}
+          , 1000);
+      });
+    </script>
+  </head>
+  <body>
+    <p id="ls">Loading...</p>
+  </body>
+</html>
+
+
+
+{% extends "layout.html" %}
