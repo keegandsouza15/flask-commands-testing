@@ -29,7 +29,7 @@ def output():
 
     Thread(target=generate_stdout, args=(int(size),)).start()
 
-    flash(size + "mb will be written to stdout using a seperate thread ")
+    flash(size + "mb will be written to stdout using a seperate thread")
     return redirect(url_for('index'))
     
 def generate_stdout(size: int) -> None:
