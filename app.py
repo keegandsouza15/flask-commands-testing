@@ -11,11 +11,9 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 import subprocess
 import time
 
-file_size_t = None
-
 @app.route("/filesize")
 def get_file_sizes():
-    result = subprocess.run(['ls', '-lh'], stdout=subprocess.PIPE)
+    result = subprocess.run(['ls', '-lh', '/appsvctmp/volatile/logs/runtime'], stdout=subprocess.PIPE)
     print(result.stdout)
     l = str(result.stdout).split('\\n')
     return jsonify(l)
@@ -23,12 +21,6 @@ def get_file_sizes():
 
 @app.route("/")
 def index():
-    global file_size_t
-
-    if file_size_t == None:
-        file_size_t = Thread(target=get_file_sizes)
-        file_size_t.start()
-
     return render_template('index.html')
 
 @app.route('/output', methods =['POST'])
@@ -37,7 +29,7 @@ def output():
 
     Thread(target=generate_stdout, args=(int(size),)).start()
 
-    flash(size + "mb will be written to stdout using a seperate thread")
+    flash(size + "mb will be written to stdout using a seperate thread ")
     return redirect(url_for('index'))
     
 def generate_stdout(size: int) -> None:
@@ -51,6 +43,7 @@ def generate_stdout(size: int) -> None:
     for i in range(chuncks):
         print(s)
         print("1 mb written")
+        time.sleep(1)
     
     
 
